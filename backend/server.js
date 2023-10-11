@@ -23,9 +23,10 @@ app.get('/', (req, res) => {
 });
 
 // 5. Sequelize를 사용한 데이터베이스 연결 설정
-const sequelize = new Sequelize('your_database_name', 'your_mysql_username', 'your_mysql_password', {
-    host: 'localhost',
-    dialect: 'mysql'
+const config = require('./config/config.json').development;
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: config.dialect
 });
 
 // 데이터베이스 연결 테스트
