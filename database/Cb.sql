@@ -84,3 +84,45 @@ CREATE TABLE notification (
     PRIMARY KEY(notification_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- user_info 테이블에 예시 데이터 추가
+INSERT INTO user_info (email, password, full_name, nickname, phone_number)
+VALUES ('user@example.com', 'password123', '홍길동', '길동이', '010-1234-5678');
+
+-- profile_info 테이블에 예시 데이터 추가
+INSERT INTO profile_info (user_id, age, gender, occupation, skill_set, experience, portfolio_link)
+VALUES (1, 28, '남성', '개발자', 'Python, JavaScript', '3년 간의 개발 경험', 'http://portfolio.example.com');
+
+-- post 테이블에 예시 데이터 추가
+INSERT INTO post (project_title, user_id, post_content, post_datetime, required_skills, project_location, project_field, project_status)
+VALUES ('새 프로젝트', 1, '이것은 새 프로젝트에 대한 게시글입니다.', NOW(), 'Python', '서울', '웹개발', '모집중');
+
+-- project_participation 테이블에 예시 데이터 추가
+INSERT INTO project_participation (post_id, user_id, application_datetime, application_status)
+VALUES (1, 1, NOW(), '신청중');
+
+-- qna 테이블에 예시 데이터 추가
+INSERT INTO qna (post_id, user_id, question_content, question_datetime)
+VALUES (1, 1, '이 프로젝트에 관심이 있습니다. 참여할 수 있나요?', NOW());
+
+-- notification 테이블에 예시 데이터 추가
+INSERT INTO notification (user_id, notification_type, related_item_id, notification_message, creation_datetime, is_read)
+VALUES (1, '질문요청', 1, '새로운 질문이 도착했습니다.', NOW(), FALSE);
+
+-- user_info 테이블에서 데이터 확인
+SELECT * FROM user_info;
+
+-- profile_info 테이블에서 데이터 확인
+SELECT * FROM profile_info;
+
+-- post 테이블에서 데이터 확인
+SELECT * FROM post;
+
+-- project_participation 테이블에서 데이터 확인
+SELECT * FROM project_participation;
+
+-- qna 테이블에서 데이터 확인
+SELECT * FROM qna;
+
+-- notification 테이블에서 데이터 확인
+SELECT * FROM notification;
