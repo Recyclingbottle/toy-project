@@ -9,9 +9,6 @@ const Post = sequelize.define('post', {
         allowNull: false,
         primaryKey: true
     },
-    project_title: {
-        type: DataTypes.STRING(255)
-    },
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -20,11 +17,17 @@ const Post = sequelize.define('post', {
             key: 'user_id'
         }
     },
+    project_title: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
     post_content: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        allowNull: false
     },
     post_datetime: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
     },
     required_skills: {
         type: DataTypes.STRING(255)
@@ -36,7 +39,32 @@ const Post = sequelize.define('post', {
         type: DataTypes.STRING(255)
     },
     project_status: {
-        type: DataTypes.ENUM('모집중', '모집완료')
+        type: DataTypes.ENUM('모집중', '모집완료'),
+        allowNull: false
+    },
+    project_start_date: {
+        type: DataTypes.DATE
+    },
+    project_end_date: {
+        type: DataTypes.DATE
+    },
+    project_image: {
+        type: DataTypes.STRING(255)
+    },
+    team_size: {
+        type: DataTypes.INTEGER
+    },
+    current_member_count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    view_count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    likes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 }, {
     tableName: 'post',

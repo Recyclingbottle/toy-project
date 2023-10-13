@@ -44,17 +44,25 @@ CREATE TABLE profile_info (
 -- post 테이블 생성
 CREATE TABLE post (
     post_id INT NOT NULL AUTO_INCREMENT,
-    project_title VARCHAR(255),
     user_id INT NOT NULL,
-    post_content TEXT,
-    post_datetime DATETIME,
+    project_title VARCHAR(255) NOT NULL,
+    post_content TEXT NOT NULL,
+    post_datetime DATETIME NOT NULL,
     required_skills VARCHAR(255),
     project_location VARCHAR(255),
     project_field VARCHAR(255),
-    project_status ENUM('모집중', '모집완료'),
+    project_status ENUM('모집중', '모집완료') NOT NULL,
+    project_start_date DATE,
+    project_end_date DATE,
+    project_image VARCHAR(255),
+    team_size INT,
+    current_member_count INT DEFAULT 0,
+    view_count INT DEFAULT 0,
+    likes INT DEFAULT 0,
     PRIMARY KEY(post_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- project_participation 테이블 생성
 CREATE TABLE project_participation (
