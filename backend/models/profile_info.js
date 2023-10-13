@@ -34,6 +34,21 @@ const ProfileInfo = sequelize.define('profile_info', {
     },
     portfolio_link: {
         type: DataTypes.STRING(255)
+    },
+    profile_photo: {      // 프로필 사진의 저장 경로나 URL
+        type: DataTypes.STRING(255)
+    },
+    address: {            // 주소
+        type: DataTypes.TEXT
+    },
+    phone_number: {       // 전화번호
+        type: DataTypes.STRING(20)
+    },
+    social_media_links: { // JSON 형식의 소셜 미디어 링크
+        type: DataTypes.TEXT
+    },
+    about_me: {           // 자기소개
+        type: DataTypes.TEXT
     }
 }, {
     tableName: 'profile_info',
