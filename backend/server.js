@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Sequelize } = require('sequelize');
 
+//1-1.라우터 모듈 불러오기 
+const authRouter = require('./routes/auth');
+
+
 // 2. 앱 초기화
 const app = express();
 const PORT = 5000;
@@ -19,14 +23,17 @@ app.use(cors());
 
 // 4. 샘플 라우트
 app.get('/', (req, res) => {
-    res.send('Express에서의 환영 메시지!');
+    res.send('테스트 성공');
 });
+// auth 라우터 연결
+app.use('/auth', authRouter);
 
 // 5. Sequelize를 사용한 데이터베이스 연결 설정
 const config = require('./config/config.json').development;
 const sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
-    dialect: config.dialect
+    dialect: config.dialect,
+    logging: console.log
 });
 
 // 데이터베이스 연결 테스트
