@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const QnA = require('../models/qna');
+const Notification = require('../models/notification');  // 알림 모델 임포트
+
 const { SECRET_KEY } = require('./jwt_config');
 
 // JWT 토큰 인증 미들웨어
@@ -28,12 +30,22 @@ router.post('/ask', authenticateToken, async (req, res) => {
             question_datetime: new Date()
         };
         const question = await QnA.create(questionData);
+
+        // 알림 생성 (게시글 작성자에게)
+        await Notification.create({
+            user_id: relatedPost.user_id,
+            notification_type: '질문요청',
+            related_item_type: 'QnA',
+            related_item_id: question.question_id,
+            notification_message: '새로운 질문이 등록되었습니다.',
+            creation_datetime: new Date()
+        });
+
         res.status(201).json(question);
     } catch (error) {
         res.status(500).json({ error: '질문 등록 중 오류가 발생했습니다.' });
     }
 });
-
 // 특정 게시물에 대한 모든 질문 조회
 router.get('/:postId', async (req, res) => {
     try {
@@ -62,6 +74,16 @@ router.post('/:questionId/answer', authenticateToken, async (req, res) => {
         question.answer_datetime = new Date();
         question.answerer_id = req.user.id;
         await question.save();
+
+        // 알림 생성 (질문 등록자에게)
+        await Notification.create({
+            user_id: question.user_id,
+            notification_type: '답변알림',
+            related_item_type: 'QnA',
+            related_item_id: question.question_id,
+            notification_message: '당신의 질문에 답변이 등록되었습니다.',
+            creation_datetime: new Date()
+        });
 
         res.status(200).json(question);
     } catch (error) {
