@@ -99,7 +99,7 @@ CREATE TABLE notification (
     notification_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절') NOT NULL,
-    related_item_type ENUM('QnA', 'ProjectParticipation') NULL, -- 추가된 필드
+    related_item_type ENUM('QnA', '프로젝트') NULL, -- 추가된 필드
     related_item_id INT NULL,
     notification_message TEXT NOT NULL,
     creation_datetime DATETIME NOT NULL,

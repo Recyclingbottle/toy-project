@@ -21,6 +21,10 @@ const Notification = sequelize.define('notification', {
         type: DataTypes.ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절'),
         allowNull: false
     },
+    related_item_type: {  // 추가된 필드
+        type: DataTypes.ENUM('QnA', '프로젝트'),
+        allowNull: true
+    },
     related_item_id: {
         type: DataTypes.INTEGER,
         allowNull: true
