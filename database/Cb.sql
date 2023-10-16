@@ -98,14 +98,16 @@ CREATE TABLE qna (
 CREATE TABLE notification (
     notification_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절'),
-    related_item_id INT,
-    notification_message TEXT,
-    creation_datetime DATETIME,
-    is_read BOOLEAN,
+    notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절') NOT NULL,
+    related_item_type ENUM('QnA', 'ProjectParticipation') NULL, -- 추가된 필드
+    related_item_id INT NULL,
+    notification_message TEXT NOT NULL,
+    creation_datetime DATETIME NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY(notification_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 
 -- user_info 테이블에서 데이터 확인
