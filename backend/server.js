@@ -7,6 +7,9 @@ const { Sequelize } = require('sequelize');
 //1-1.라우터 모듈 불러오기 
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
+const projectboardRouter = require('./routes/project_board');
+const participationRouter = require('./routes/participation');
+const qnaRouter = require('./routes/qna');
 
 // 2. 앱 초기화
 const app = express();
@@ -29,6 +32,12 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 //profile 라우터 연결
 app.use('/profile', profileRouter);
+//project board 라우터 연결
+app.use('/pboard', projectboardRouter);
+//participation 라우터 연결 
+app.use('/part', participationRouter);
+//qna 라우터 연결
+app.use('/qna', qnaRouter);
 
 // 5. Sequelize를 사용한 데이터베이스 연결 설정
 const config = require('./config/config.json').development;
