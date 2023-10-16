@@ -4,12 +4,13 @@
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 
-// Action creators
-export const loginSuccess = (userData) => ({
+export const loginSuccess = (userData, token) => ({
     type: LOGIN_SUCCESS,
-    payload: userData,
+    payload: {
+        userData,
+        token, // 토큰 추가
+    },
 });
-
 export const logout = () => ({
     type: LOGOUT
 });
