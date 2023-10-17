@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../actions/authActions';
+
+
+import Navbar from './Navbar';
+import HeaderComponent from './HeaderComponent';
 
 function LoginComponent() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const [loginError, setLoginError] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -26,18 +32,24 @@ function LoginComponent() {
 
             // 토큰을 Redux 스토어에 저장
             dispatch(loginSuccess(data.userData, data.token));
+            navigate('/');
+        } else if (response.status === 401) {
+            // 401 상태 코드일 때 로그인 실패 메시지 표시
+            setLoginError('로그인에 실패하였습니다. 이메일과 비밀번호를 확인해주세요.');
         } else {
-            // 로그인 실패 처리
+            // 기타 오류 처리
             console.error('로그인 실패');
         }
     };
 
     return (
         <div>
-            <h2>Login</h2>
+            <Navbar />
+            <HeaderComponent />
+            <h2>로그인</h2>
             <form onSubmit={handleLogin}>
                 <div>
-                    <label>E-mail:</label>
+                    <label>이메일:</label>
                     <input
                         type="text"
                         name="email"
@@ -46,7 +58,7 @@ function LoginComponent() {
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    <label>비밀번호:</label>
                     <input
                         type="password"
                         name="password"
@@ -55,8 +67,9 @@ function LoginComponent() {
                     />
                 </div>
                 <div>
-                    <button type="submit">Login</button>
+                    <button type="submit">로그인</button>
                 </div>
+                {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
                 <div>
                     <Link to="/signup">회원가입</Link>
                 </div>
