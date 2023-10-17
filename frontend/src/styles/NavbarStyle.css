@@ -1,0 +1,41 @@
+/* NavbarStyle.css */
+
+/* Navbar 컴포넌트 전체 스타일 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+/* Navbar 내부 링크 스타일 */
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #ff5733;
+    /* 링크에 호버 효과를 추가 */
+}
+
+/* 로그아웃 버튼 스타일 */
+.navbar button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    outline: none;
+}
+
+.navbar button:hover {
+    color: #ff5733;
+    /* 버튼에 호버 효과를 추가 */
+}
