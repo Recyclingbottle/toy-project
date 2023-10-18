@@ -84,7 +84,7 @@ function Profile() {
         return (
             <div>
                 <p>{profile ? profile.message : '프로필이 존재하지 않습니다. 등록하시겠습니까?'}</p>
-                <button onClick={() => navigate('/register_profile')}>예</button>
+                <button onClick={() => navigate('/register-profile')}>예</button>
                 <button onClick={() => navigate(-1)}>아니요</button>
             </div>
         );
