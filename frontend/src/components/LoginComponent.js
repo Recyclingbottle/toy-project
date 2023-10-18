@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../actions/authActions';
 
-
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
@@ -32,6 +31,10 @@ function LoginComponent() {
 
             // 토큰을 Redux 스토어에 저장
             dispatch(loginSuccess(data.userData, data.token));
+
+            // 토큰을 로컬 스토리지에 저장
+            localStorage.setItem('token', data.token);
+
             navigate('/');
         } else if (response.status === 401) {
             // 401 상태 코드일 때 로그인 실패 메시지 표시

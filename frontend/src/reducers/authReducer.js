@@ -7,7 +7,7 @@ const initialState = {
     token: null, // 토큰 추가
 };
 
-export const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS:
             const { userData, token } = action.payload;
