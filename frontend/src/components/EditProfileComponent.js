@@ -10,29 +10,29 @@ function EditProfile() {
     const navigate = useNavigate();
     const token = useSelector(state => state.auth.token);
 
-    const fetchProfile = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/profile', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setProfile(data);
-            } else {
-                const errorData = await response.json();
-                console.error(errorData.message);
-            }
-        } catch (error) {
-            console.error('프로필 정보를 가져오는데 실패하였습니다.', error);
-        }
-    };
-
     useEffect(() => {
-        fetchProfile();
-    }, []);
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setProfile(data);
+                } else {
+                    const errorData = await response.json();
+                    console.error(errorData.message);
+                }
+            } catch (error) {
+                console.error('프로필 정보를 가져오는데 실패하였습니다.', error);
+            }
+        };
+
+        fetchProfile(); // useEffect 내부에서 호출
+    }, [token]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
