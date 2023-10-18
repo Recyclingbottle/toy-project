@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'; // Redux 스토어에서 토큰 및 프로필 데이터 가져오기
 import ProfileIcon from '../img/default-profile-img.png';
 
-import Navbar from './Navbar';
+import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
 function Profile() {
@@ -91,6 +91,9 @@ function Profile() {
     }
 
     // 프로필 정보를 표시하는 UI를 반환합니다.
+    // 프로필 이미지 현재는 react 의 src 내 사진을 가져오지만
+    // 서버의 디폴트 프로필 이미지 추가 후 불러오기 
+    // 등록하기 추가 
     return (
         <div>
             <Navbar />
@@ -108,7 +111,7 @@ function Profile() {
                 {renderSNSLinks(profileData)}
                 <div><strong>자기소개:</strong> {profile.about_me}</div>
             </div>
-            <button onClick={() => navigate('/register_profile')}>프로필 수정하기</button>
+            <button onClick={() => navigate('/edit_profile')}>프로필 수정하기</button>
         </div>
     );
 }

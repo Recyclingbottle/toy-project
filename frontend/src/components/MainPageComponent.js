@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HeaderComponent from './HeaderComponent';
-import Navbar from './Navbar';
+import Navbar from './NavbarComponent';
 function MainPageComponent() {
     const [posts, setPosts] = useState([]);
 
@@ -23,8 +23,6 @@ function MainPageComponent() {
             <Navbar />
             <HeaderComponent />
             <div className="main-content">
-                <h2>옅구름</h2>
-                <p>토이프로젝트 팀원 찾기 사이트</p>
                 <input type="text" placeholder="검색어를 입력하세요" />
 
                 <div className="cards">

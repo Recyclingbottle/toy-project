@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../actions/authActions';
 
 
-import Navbar from './Navbar';
+import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
 function LoginComponent() {

@@ -1,39 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'; // useSelector와 useDispatch 추가
+import { useSelector } from 'react-redux';
 
-import Navbar from './Navbar';
+import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
-function RegisterProfile() {
+function EditProfile() {
     const [profile, setProfile] = useState({});
     const navigate = useNavigate();
-
-    // useSelector를 사용하여 Redux 스토어에서 토큰 가져오기
     const token = useSelector(state => state.auth.token);
-    useEffect(() => {
-        async function fetchProfile() {
-            try {
-                const response = await fetch('http://localhost:5000/profile', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    setProfile(data);
-                } else {
-                    const responseData = await response.json();
-                    console.error(responseData.message);
+    const fetchProfile = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            } catch (error) {
-                console.error('프로필 정보를 불러오는 중 오류가 발생하였습니다.', error);
-            }
-        }
+            });
 
+            if (response.ok) {
+                const data = await response.json();
+                setProfile(data);
+            } else {
+                const errorData = await response.json();
+                console.error(errorData.message);
+            }
+        } catch (error) {
+            console.error('프로필 정보를 가져오는데 실패하였습니다.', error);
+        }
+    };
+
+    useEffect(() => {
         fetchProfile();
-    }, [token]); // 토큰이 변경될 때만 useEffect가 다시 실행됩니다.
+    }, []);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setProfile(prev => ({ ...prev, [name]: value }));
+    }
+
+    const handleUpdate = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/profile/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(profile),
+            });
+
+            if (response.ok) {
+                navigate('/profile');
+            } else {
+                const errorData = await response.json();
+                console.error(errorData.message);
+            }
+        } catch (error) {
+            console.error('프로필 수정에 실패하였습니다.', error);
+        }
+    };
 
     function renderSNSLinks() {
         if (!profile.social_media_links) {
@@ -60,40 +86,6 @@ function RegisterProfile() {
         }
     }
 
-    const handleSubmit = async () => {
-        const url = profile.user_id ? 'http://localhost:5000/profile/update' : 'http://localhost:5000/profile/register';
-        const method = profile.user_id ? 'PUT' : 'POST';
-        const token = localStorage.getItem('token');
-
-        try {
-            const response = await fetch(url, {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(profile),
-            });
-
-            if (response.ok) {
-                navigate('/profile');
-            } else {
-                const errorData = await response.json();
-                console.error(errorData.message);
-            }
-        } catch (error) {
-            console.error('프로필 등록/수정에 실패하였습니다.', error);
-        }
-    }
-
-    function handleInputChange(event) {
-        const { name, value } = event.target;
-        setProfile(prevProfile => ({
-            ...prevProfile,
-            [name]: value
-        }));
-    }
-
     return (
         <div>
             <Navbar />
@@ -112,12 +104,13 @@ function RegisterProfile() {
 
                 <label>
                     성별:
-                    <select name="gender" value={profile.gender || ''} onChange={handleInputChange}>
+                    <select name="gender" value={profile.gender || '남성'} onChange={handleInputChange}>
                         <option value="남성">남성</option>
                         <option value="여성">여성</option>
                         <option value="기타">기타</option>
                     </select>
                 </label>
+
 
                 <label>
                     직업:
@@ -189,10 +182,9 @@ function RegisterProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
-                <button type="submit" onClick={handleSubmit}>제출</button>
+                <button type="submit" onClick={handleUpdate}>수정하기</button>
             </form>
         </div>
     );
 }
-
-export default RegisterProfile;
+export default EditProfile;

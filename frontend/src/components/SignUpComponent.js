@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 function SignUpComponent() {
     const navigate = useNavigate();
