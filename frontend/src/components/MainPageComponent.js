@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeaderComponent from './HeaderComponent';
 import Navbar from './NavbarComponent';
+
 function MainPageComponent() {
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
+    // Redux 스토어에서 토큰 및 프로필 데이터 가져오기
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('http://localhost:5000/pboard');
+                const response = await fetch('http://localhost:5000/pboard', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const data = await response.json();
                 setPosts(data);
             } catch (error) {
@@ -15,8 +24,14 @@ function MainPageComponent() {
             }
         };
 
+
         fetchPosts();
-    }, []);
+    }, [token]);  // 여기에 token을 dependency array에 추가);
+
+    // 게시글 등록 시 실행되는 함수
+    const handleCreatePost = () => {
+        navigate('/create-post');
+    }
 
     return (
         <div>
@@ -24,6 +39,8 @@ function MainPageComponent() {
             <HeaderComponent />
             <div className="main-content">
                 <input type="text" placeholder="검색어를 입력하세요" />
+
+                <button onClick={handleCreatePost}>게시글 등록하기</button>
 
                 <div className="cards">
                     {posts.map(post => (
