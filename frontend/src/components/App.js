@@ -17,6 +17,8 @@ import Profile from './ProfileComponent';
 import RegisterProfile from './RegisterProfileComponent';
 import EditProfile from './EditProfileComponent';
 import CreatePostComponent from './CreatePostComponent';
+import PostDetailComponent from './PostDetailComponent';
+
 
 function App() {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -30,6 +32,7 @@ function App() {
         <Route path="/register_profile" element={<RegisterProfile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/create-post" element={<CreatePostComponent />} />
+        <Route path="/post/:postId" element={<PostDetailComponent />} />
         <Route path="/" element={isAuthenticated ? <MainPageComponent /> : <LoginComponent />} />
       </Routes>
     </Router>

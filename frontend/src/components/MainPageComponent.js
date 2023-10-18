@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import HeaderComponent from './HeaderComponent';
 import Navbar from './NavbarComponent';
 
+
 function MainPageComponent() {
     const [posts, setPosts] = useState([]);
+    const [selectedPostId, setSelectedPostId] = useState(null);
     const navigate = useNavigate();
+
     // Redux 스토어에서 토큰 및 프로필 데이터 가져오기
     const token = localStorage.getItem('token');
 
@@ -24,13 +27,17 @@ function MainPageComponent() {
             }
         };
 
-
         fetchPosts();
-    }, [token]);  // 여기에 token을 dependency array에 추가);
+    }, [token]);
 
     // 게시글 등록 시 실행되는 함수
     const handleCreatePost = () => {
         navigate('/create-post');
+    }
+
+    // 개별 게시물 보기 처리
+    const handleViewPost = (postId) => {
+        navigate(`/post/${postId}`);
     }
 
     return (
@@ -44,7 +51,7 @@ function MainPageComponent() {
 
                 <div className="cards">
                     {posts.map(post => (
-                        <div key={post.post_id} className="card">
+                        <div key={post.post_id} className="card" onClick={() => handleViewPost(post.post_id)}>
                             <h3>{post.project_title}</h3>
                             <p>{post.post_content}</p>
                         </div>
