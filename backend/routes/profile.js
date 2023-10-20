@@ -32,9 +32,23 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 });
 
+router.get('/:userId', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const profile = await ProfileInfo.findOne({ where: { user_id: userId } });
+        if (!profile) {
+            return res.status(404).json({ error: '프로필을 찾을 수 없습니다.' });
+        }
+        res.status(200).json(profile);
+    } catch (error) {
+        res.status(500).json({ error: '프로필 정보를 가져오는 중 오류가 발생하였습니다.' });
+    }
+});
+
 
 router.post('/register', authenticateToken, async (req, res) => {
     try {
+        console.log(req.body);
         const profileData = {
             ...req.body,
             user_id: req.user.id
