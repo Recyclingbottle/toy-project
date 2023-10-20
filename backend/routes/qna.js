@@ -63,13 +63,11 @@ router.post('/ask', authenticateToken, async (req, res) => {
             user_id: post.user_id, // 게시물 작성자의 user_id 사용
             notification_type: '질문요청',
             related_item_type: 'QnA',
-            related_item_id: question.question_id,
+            related_item_id: post_id,
             notification_message: '새로운 질문이 등록되었습니다.',
             creation_datetime: new Date()
         });
 
-        // 추가: 로그 출력
-        console.log('질문이 등록되었습니다.', question);
 
         res.status(201).json(question);
     } catch (error) {
