@@ -1,10 +1,34 @@
-.icon-title {
+.header-container {
     display: flex;
-    align-items: center;
-    /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center;     /* 세로 중앙 정렬 */
+    height: 10%;          
+    background-color: #f7f9fc;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
 }
 
-.cloud-icon {
-    margin-right: 10px;
-    /* 아이콘과 제목 간 간격 조절 */
+.header-icon-title {
+    display: flex;
+    align-items: center;
+}
+
+.header-cloud-icon {
+    margin-right: 15px;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: column;
+}
+
+#main-title {
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+#sub-title {
+    color: #7f8c8d;
+    margin-top: 5px;
 }

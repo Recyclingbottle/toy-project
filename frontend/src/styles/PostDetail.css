@@ -1,0 +1,70 @@
+.post-detail-container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.post-detail-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.post-detail-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button, .delete-button, .apply-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #f0f0f0;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #e13028;
+}
+
+.post-detail-content {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.post-detail-info {
+    list-style: none;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.post-detail-info li {
+    margin-bottom: 10px;
+}
+
+.apply-section {
+    margin-top: 20px;
+}
+
+.apply-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.apply-button:hover {
+    background-color: #45a049;
+}
+
+.qna-section {
+    margin-top: 40px;
+}

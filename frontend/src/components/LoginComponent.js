@@ -7,6 +7,8 @@ import { loginSuccess } from '../actions/authActions';
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
+import '../styles/Login.css'
+
 function LoginComponent() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
@@ -46,34 +48,36 @@ function LoginComponent() {
     };
 
     return (
-        <div>
+        <div className="login-container">
             <Navbar />
             <HeaderComponent />
-            <h2>로그인</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>이메일:</label>
+            <h2 className="login-title">로그인</h2>
+            <form className="login-form" onSubmit={handleLogin}>
+                <div className="login-input-group">
+                    <label htmlFor="email-input">이메일:</label>
                     <input
+                        id="email-input"
                         type="text"
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label>비밀번호:</label>
+                <div className="login-input-group">
+                    <label htmlFor="password-input">비밀번호:</label>
                     <input
+                        id="password-input"
                         type="password"
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="login-button-group">
                     <button type="submit">로그인</button>
                 </div>
-                {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
-                <div>
+                {loginError && <div className="login-error" style={{ color: 'red' }}>{loginError}</div>}
+                <div className="signup-link-group">
                     <Link to="/signup">회원가입</Link>
                 </div>
             </form>

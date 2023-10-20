@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
-
+import '../styles/EditProfile.css'
 function EditProfile() {
     const [profile, setProfile] = useState({});
     const navigate = useNavigate();
@@ -87,21 +87,22 @@ function EditProfile() {
     }
 
     return (
-        <div>
+        <div id="edit-profile-container">
             <Navbar />
             <HeaderComponent />
-            <h2>프로필 {profile.user_id ? '수정' : '등록'}</h2>
-            <form onSubmit={e => e.preventDefault()}>
-                <label>
-                    나이:
+            <h2 id="profile-title">프로필 수정</h2>
+            <form id="profile-form" onSubmit={e => e.preventDefault()}>
+                <div className="input-container">
+                    <label htmlFor="age">나이:</label>
                     <input
+                        id="age"
                         type="number"
                         name="age"
                         value={profile.age || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
+                </div>
+                <div className="input-container">
                 <label>
                     성별:
                     <select name="gender" value={profile.gender || '남성'} onChange={handleInputChange}>
@@ -110,7 +111,8 @@ function EditProfile() {
                         <option value="기타">기타</option>
                     </select>
                 </label>
-
+                </div>
+                <div className="input-container">
 
                 <label>
                     직업:
@@ -121,7 +123,9 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
-
+                </div>     
+                <div className="input-container">
+  
                 <label>
                     기술 스택:
                     <input
@@ -131,6 +135,8 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
+                </div>     
+                <div className="input-container">
 
                 <label>
                     경력:
@@ -141,6 +147,8 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
+                </div>     
+                <div className="input-container">
 
                 <label>
                     포트폴리오 링크:
@@ -151,6 +159,8 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
+                </div>     
+                <div className="input-container">
 
                 <label>
                     주소:
@@ -161,6 +171,8 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
+                </div>
+                <div className="input-container">
 
                 <label>
                     PHONE:
@@ -171,8 +183,11 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
+                </div>
+
 
                 {renderSNSLinks()}
+                <div className="input-container">
 
                 <label>
                     자기소개:
@@ -182,7 +197,9 @@ function EditProfile() {
                         onChange={handleInputChange}
                     />
                 </label>
-                <button type="submit" onClick={handleUpdate}>수정하기</button>
+                </div>
+
+                <button id="submit-btn" type="submit" onClick={handleUpdate}>수정하기</button>
             </form>
         </div>
     );

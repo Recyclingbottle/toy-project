@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
+import '../styles/RegisterProfile.css';
 
 function RegisterProfile() {
     const [profile, setProfile] = useState({});
@@ -66,101 +67,110 @@ function RegisterProfile() {
     }
 
     return (
-        <div>
+        <div id="register-profile-container">
             <Navbar />
             <HeaderComponent />
             <h2>프로필 {profile.user_id ? '수정' : '등록'}</h2>
-            <form onSubmit={e => e.preventDefault()}>
-                <label>
-                    나이:
+            <form id="register-profile-form" onSubmit={e => e.preventDefault()}>
+                
+                <div className="label-container">
+                    <label>나이:</label>
                     <input
+                        className="text-input"
                         type="number"
                         name="age"
                         value={profile.age || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
-                <label>
-                    성별:
-                    <select name="gender" value={profile.gender || '남성'} onChange={handleInputChange}>
+                </div>
+    
+                <div className="label-container">
+                    <label>성별:</label>
+                    <select className="text-input" name="gender" value={profile.gender || '남성'} onChange={handleInputChange}>
                         <option value="남성">남성</option>
                         <option value="여성">여성</option>
                         <option value="기타">기타</option>
                     </select>
-                </label>
-
-
-                <label>
-                    직업:
+                </div>
+    
+                <div className="label-container">
+                    <label>직업:</label>
                     <input
+                        className="text-input"
                         type="text"
                         name="occupation"
                         value={profile.occupation || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
-                <label>
-                    기술 스택:
+                </div>
+    
+                <div className="label-container">
+                    <label>기술 스택:</label>
                     <input
+                        className="text-input"
                         type="text"
                         name="skill_set"
                         value={profile.skill_set || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
-                <label>
-                    경력:
+                </div>
+    
+                <div className="label-container">
+                    <label>경력:</label>
                     <input
+                        className="text-input"
                         type="text"
                         name="experience"
                         value={profile.experience || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
-                <label>
-                    포트폴리오 링크:
+                </div>
+    
+                <div className="label-container">
+                    <label>포트폴리오 링크:</label>
                     <input
+                        className="text-input"
                         type="text"
                         name="portfolio_link"
                         value={profile.portfolio_link || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
-                <label>
-                    주소:
+                </div>
+    
+                <div className="label-container">
+                    <label>주소:</label>
                     <input
+                        className="text-input"
                         type="text"
                         name="address"
                         value={profile.address || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
-                <label>
-                    PHONE:
+                </div>
+    
+                <div className="label-container">
+                    <label>연락처:</label>
                     <input
+                        className="text-input"
                         type="text"
                         name="phone_number"
                         value={profile.phone_number || ''}
                         onChange={handleInputChange}
                     />
-                </label>
-
+                </div>
+    
                 {renderSNSLinks()}
-
-                <label>
-                    자기소개:
+    
+                <div className="label-container">
+                    <label>자기소개:</label>
                     <textarea
+                        className="textarea-input"
                         name="about_me"
                         value={profile.about_me || ''}
                         onChange={handleInputChange}
                     />
-                </label>
+                </div>
+    
                 <button type="submit" onClick={handleSubmit}>제출</button>
             </form>
         </div>

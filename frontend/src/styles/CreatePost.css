@@ -1,0 +1,73 @@
+/* CreatePostComponent의 전체 스타일링 */
+#createPostComponent {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+
+#createPostComponent .create-post-wrapper {
+    margin-top: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#createPostComponent #postForm {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 각 입력 필드의 스타일링 */
+#createPostComponent .input-group {
+    margin-bottom: 20px;
+}
+
+#createPostComponent .input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#createPostComponent .text-input,
+#createPostComponent textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#createPostComponent .text-input:hover,
+#createPostComponent textarea:hover {
+    border-color: #999;
+}
+
+#createPostComponent .text-input:focus,
+#createPostComponent textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0px 0px 7px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* 게시물 생성 버튼 스타일링 */
+#createPostComponent .submit-button {
+    padding: 12px 25px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+#createPostComponent .submit-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 0px 15px rgba(0, 86, 179, 0.25);
+}
+
+#createPostComponent .submit-button:active {
+    background-color: #004094;
+}

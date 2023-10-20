@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
+
+import '../styles/SignUp.css'
+
 function SignUpComponent() {
     const navigate = useNavigate();
 
@@ -57,11 +60,11 @@ function SignUpComponent() {
     };
 
     return (
-        <div>
+        <div className="signup-container">
             <Navbar />
             <HeaderComponent />
-            <h2>회원가입</h2>
-            <form onSubmit={handleSignUp}>
+            <h2 className="signup-title">회원가입</h2>
+            <form className="signup-form" onSubmit={handleSignUp}>
                 {[
                     { label: '이메일', type: 'text', name: 'email' },
                     { label: '비밀번호', type: 'password', name: 'password' },
@@ -79,19 +82,19 @@ function SignUpComponent() {
                         />
                     </div>
                 ))}
-                <div>
-                    <label>전화번호:</label>
-                    <input type="text" maxLength="3" name="phoneNumber1" value={formData.phoneNumber1} onChange={handleChange} />
-                    -
-                    <input type="text" maxLength="4" name="phoneNumber2" value={formData.phoneNumber2} onChange={handleChange} />
-                    -
-                    <input type="text" maxLength="4" name="phoneNumber3" value={formData.phoneNumber3} onChange={handleChange} />
-                </div>
-                <div>
-                    <button type="submit">Sign Up</button>
-                </div>
-            </form>
-        </div>
+                <div className="signup-phone">
+                <label>전화번호:</label>
+                <input type="text" maxLength="3" name="phoneNumber1" value={formData.phoneNumber1} onChange={handleChange} />
+                -
+                <input type="text" maxLength="4" name="phoneNumber2" value={formData.phoneNumber2} onChange={handleChange} />
+                -
+                <input type="text" maxLength="4" name="phoneNumber3" value={formData.phoneNumber3} onChange={handleChange} />
+            </div>
+            <div className="signup-button">
+                <button type="submit">가입하기</button>
+            </div>
+        </form>
+    </div>
     );
 }
 

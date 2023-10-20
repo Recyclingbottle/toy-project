@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
+import HeaderComponent from './HeaderComponent';
+import Navbar from './NavbarComponent';
+import '../styles/EditPost.css'
 function PostEditComponent() {
     const [post, setPost] = useState(null);
     const { postId } = useParams();
@@ -81,9 +83,11 @@ function PostEditComponent() {
     }
 
     return (
-        <div>
-            <h2>게시물 수정</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="post-edit-container">
+             <Navbar />
+             <HeaderComponent />
+            <h2 className="post-edit-title">게시물 수정</h2>
+            <form onSubmit={handleSubmit} className="post-edit-form">
                 <div>
                     <label>프로젝트 제목:</label>
                     <input
@@ -167,10 +171,10 @@ function PostEditComponent() {
                         min="1" // 최소 1명
                     />
                 </div>
-                <button type="submit">게시물 수정 완료</button>
-            </form>
-        </div>
-    );
+                <button type="submit" className="post-edit-submit-btn">게시물 수정 완료</button>
+        </form>
+    </div>
+);
 }
 
 export default PostEditComponent;

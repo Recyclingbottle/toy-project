@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 import ProjectModal from './ProjectModal';
-
+import '../styles/Notification.css'
 function NotificationComponent() {
     const navigate = useNavigate();
     const token = useSelector(state => state.auth.token);
@@ -77,23 +76,23 @@ function NotificationComponent() {
         setIsModalOpen(false);
     };
     return (
-        <div>
+        <div className="notification-container">
             <Navbar />
             <HeaderComponent />
-            <h1>알림 페이지</h1>
-            <ul>
+            <h1 id="notification-title">알림 페이지</h1>
+            <ul className="notification-list">
                 {notifications.map(notification => (
-                    <li key={notification.notification_id}>
-                        <strong>메시지:</strong> {notification.notification_message}<br />
-                        <strong>유형:</strong> {notification.notification_type}<br />
-                        <button onClick={() => handleDeleteNotification(notification.notification_id)}>삭제</button>
-                        <button onClick={() => handleViewNotification(notification)}>확인</button>
+                    <li key={notification.notification_id} className="notification-item">
+                        <strong className="notification-message-label">메시지:</strong> <span className="notification-message">{notification.notification_message}</span><br />
+                        <strong className="notification-type-label">유형:</strong> <span className="notification-type">{notification.notification_type}</span><br />
+                        <button className="notification-view-btn" onClick={() => handleViewNotification(notification)}>확인</button>
+                        <button className="notification-delete-btn" onClick={() => handleDeleteNotification(notification.notification_id)}>삭제</button>
                     </li>
                 ))}
             </ul>
             {isModalOpen && (
-    <ProjectModal projectId={selectedProjectId} onClose={handleCloseModal} />
-    )}
+                <ProjectModal projectId={selectedProjectId} onClose={handleCloseModal} />
+            )}
         </div>
     );
 

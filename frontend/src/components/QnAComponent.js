@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
+import '../styles/QnA.css'
 function QnAComponent({ postId }) {
     const [questions, setQuestions] = useState([]);
     const [questionContent, setQuestionContent] = useState('');
@@ -106,34 +106,34 @@ function QnAComponent({ postId }) {
     }, [postId, token]);
 
     return (
-        <div>
-            <h2>QnA Section</h2>
-
-            {/* 질문 등록 폼 */}
-            <div>
-                <h3>질문 등록</h3>
+        <div className="qna-container">
+            <h2 id="qna-title">QnA</h2>
+    
+            <div className="question-form">
+                <h3 id="question-register-title">질문 등록</h3>
                 <textarea
+                    className="question-textarea"
                     value={questionContent}
                     onChange={e => setQuestionContent(e.target.value)}
                     placeholder="질문을 입력하세요..."
                 />
-                <button onClick={askQuestion}>
+                <button className="question-button" onClick={askQuestion}>
                     질문 등록
                 </button>
             </div>
-            {/* 질문 및 답변 리스트 */}
-            <div>
+    
+            <div className="question-answer-list">
                 {questions.length === 0 ? (
                     <p>질문이 없습니다.</p>
                 ) : (
                     questions.map((question) => (
-                        <div key={question.question_id} style={{ margin: '20px 0', border: '1px solid #ccc', padding: '10px' }}>
+                        <div key={question.question_id} className="question-item">
                             <p><strong>{question.question_content}</strong></p>
                             <p>{new Date(question.question_datetime).toLocaleString()}</p>
 
                             {/* 답변이 있는 경우 답변을 보여줍니다. */}
                             {question.answer_content ? (
-                                <div>
+                                <div className="answer-content">
                                     <p>{new Date(question.answer_datetime).toLocaleString()}</p>
                                     {/* 수정 버튼 */}
                                     <button onClick={() => setEditingAnswerId(question.question_id)}>
@@ -143,7 +143,7 @@ function QnAComponent({ postId }) {
                                 </div>
                             ) : (
                                 // 답변이 없는 경우 답변을 작성할 수 있게 합니다.
-                                <div>
+                                <div className="edit-answer-form">
                                     <textarea
                                         value={answerContent[question.question_id] || ''}
                                         onChange={e => handleAnswerChange(question.question_id, e.target.value)}

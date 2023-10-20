@@ -1,0 +1,53 @@
+/* EditProfile 전용 CSS */
+
+#edit-profile-container {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+#profile-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-container label {
+    width: 20%;
+    font-weight: bold;
+}
+
+.input-container input,
+.input-container select,
+.input-container textarea {
+    width: 75%;
+}
+
+#submit-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#submit-btn:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,53 @@
+/* Container Styles */
+#register-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Form Styles */
+#register-profile-form {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Label Container */
+.label-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Input Styles */
+.text-input, .textarea-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.textarea-input {
+    resize: vertical;
+    height: 120px;
+}
+
+/* Button Styles */
+#register-profile-form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+#register-profile-form button:hover {
+    background-color: #0056b3;
+}

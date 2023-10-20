@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
+import '../styles/MainPage.css'
+
 function MainPageComponent() {
     const [posts, setPosts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -46,20 +48,21 @@ function MainPageComponent() {
     }
 
     return (
-        <div>
+        <div id="mainPageComponent">
             <Navbar />
             <HeaderComponent />
             <div className="main-content">
                 <input 
-                    type="text" 
+                    type="text"
+                    id="searchInput"
                     placeholder="검색어를 입력하세요" 
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
                 />
-                <button onClick={handleCreatePost}>게시글 등록하기</button>
+                <button id="createPostButton" onClick={handleCreatePost}>게시글 등록하기</button>
                 <div className="cards">
                     {filteredPosts.map(post => (
-                        <div key={post.post_id} className="card" onClick={() => handleViewPost(post.post_id)}>
+                        <div key={post.post_id} className="post-card" onClick={() => handleViewPost(post.post_id)}>
                             <h3>{post.project_title}</h3>
                             <p>{post.post_content}</p>
                         </div>

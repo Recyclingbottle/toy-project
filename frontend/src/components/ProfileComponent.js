@@ -5,6 +5,7 @@ import ProfileIcon from '../img/default-profile-img.png';
 
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
+import '../styles/Profile.css'
 
 function Profile() {
     // Redux 스토어에서 토큰 및 프로필 데이터 가져오기
@@ -95,23 +96,23 @@ function Profile() {
     // 서버의 디폴트 프로필 이미지 추가 후 불러오기 
     // 등록하기 추가 
     return (
-        <div>
+        <div id="profile-container">
             <Navbar />
             <HeaderComponent />
             <div className="profile-info">
                 <img src={ProfileIcon} alt="profile_photo" className="profile_photo" width='10%' />
-                <div><strong>나이:</strong> {profile.age}</div>
-                <div><strong>성별:</strong> {profile.gender}</div>
-                <div><strong>직업:</strong> {profile.occupation}</div>
-                <div><strong>기술 스택:</strong> {profile.skill_set}</div>
-                <div><strong>경력:</strong> {profile.experience}</div>
-                <div><strong>포트폴리오 링크:</strong> <a href={profile.portfolio_link} target="_blank" rel="noopener noreferrer">{profile.portfolio_link}</a></div>
-                <div><strong>주소:</strong> {profile.address}</div>
-                <div><strong>PHONE:</strong> {profile.phone_number}</div>
-                {renderSNSLinks(profileData)}
-                <div><strong>자기소개:</strong> {profile.about_me}</div>
-            </div>
-            <button onClick={() => navigate('/edit-profile')}>프로필 수정하기</button>
+                <div className="profile-detail" id="profile-age"><strong>나이:</strong> {profile.age}</div>
+                <div className="profile-detail" id="profile-gender"><strong>성별:</strong> {profile.gender}</div>
+                <div className="profile-detail" id="profile-occupation"><strong>직업:</strong> {profile.occupation}</div>
+                <div className="profile-detail" id="profile-skillset"><strong>기술 스택:</strong> {profile.skill_set}</div>
+                <div className="profile-detail" id="profile-experience"><strong>경력:</strong> {profile.experience}</div>
+                <div className="profile-detail" id="profile-portfolio"><strong>포트폴리오 링크:</strong> <a href={profile.portfolio_link} target="_blank" rel="noopener noreferrer">{profile.portfolio_link}</a></div>
+                <div className="profile-detail" id="profile-address"><strong>주소:</strong> {profile.address}</div>
+                <div className="profile-detail" id="profile-phone"><strong>PHONE:</strong> {profile.phone_number}</div>
+                <div className="profile-detail" id="profile-sns">{renderSNSLinks(profileData)}</div>
+                <div className="profile-detail" id="profile-aboutme"><strong>자기소개:</strong> {profile.about_me}</div>
+                </div>
+        <button className="profile-button" onClick={() => navigate('/edit-profile')}>프로필 수정하기</button>
         </div>
     );
 }

@@ -1,0 +1,63 @@
+.signup-container {
+    padding: 20px;
+}
+
+.signup-title {
+    font-size: 24px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.signup-form {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signup-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.signup-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signup-phone {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.signup-phone input {
+    flex: 1;  /* 각 input 항목이 동일한 공간을 차지하도록 설정 */
+    margin-right: 5px;  /* 오른쪽 여백 추가 */
+    text-align: center;  /* 텍스트를 가운데 정렬 */
+}
+.signup-button {
+    text-align: center;
+}
+
+.signup-button button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.signup-button button:hover {
+    background-color: #0056b3;
+}
+/* 마지막 전화번호 입력 칸에 대한 여백 제거 */
+.signup-phone input:last-child {
+    margin-right: 0;
+}
