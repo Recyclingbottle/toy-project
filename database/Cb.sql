@@ -40,10 +40,9 @@ CREATE TABLE profile_info (
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 게시글 테이블 생성
 CREATE TABLE post (
     post_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    user_id INT, -- NOT NULL 제거
     project_title VARCHAR(255) NOT NULL,
     post_content TEXT NOT NULL,
     post_datetime DATETIME NOT NULL,
@@ -59,9 +58,8 @@ CREATE TABLE post (
     view_count INT DEFAULT 0,
     likes INT DEFAULT 0,
     PRIMARY KEY(post_id),
-    FOREIGN KEY(user_id) REFERENCES user_info(user_id)
+    FOREIGN KEY(user_id) REFERENCES user_info(user_id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- 프로젝트 참여 신청 테이블 생성
 CREATE TABLE project_participation (
     application_id INT NOT NULL AUTO_INCREMENT,
