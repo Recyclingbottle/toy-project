@@ -67,12 +67,12 @@ CREATE TABLE post (
 -- project_participation 테이블 생성
 CREATE TABLE project_participation (
     application_id INT NOT NULL AUTO_INCREMENT,
-    post_id INT NOT NULL,
-    user_id INT NOT NULL,
-    application_datetime DATETIME,
-    organizer_reaction_datetime DATETIME,
-    response_message TEXT,
-    application_status ENUM('신청중', '수락', '거절'),
+    post_id INT NOT NULL, --신청할 게시글 ID 
+    user_id INT NOT NULL, --신청하는 유저 IDD 
+    application_datetime DATETIME, --신청 시간
+    organizer_reaction_datetime DATETIME, --반응 시간
+    response_message TEXT, --반응 메세지 
+    application_status ENUM('신청중', '수락', '거절'), --신청 현재 상태 
     PRIMARY KEY(application_id),
     FOREIGN KEY(post_id) REFERENCES post(post_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
@@ -80,14 +80,14 @@ CREATE TABLE project_participation (
 
 -- qna 테이블 생성
 CREATE TABLE qna (
-    question_id INT NOT NULL AUTO_INCREMENT,
-    post_id INT NOT NULL,
-    user_id INT NOT NULL,
-    question_content TEXT,
-    question_datetime DATETIME,
-    answer_datetime DATETIME,
-    answer_content TEXT,
-    answerer_id INT,
+    question_id INT NOT NULL AUTO_INCREMENT, --질문 고유 번호
+    post_id INT NOT NULL, -- 질문 할 게시글 번호
+    user_id INT NOT NULL, -- 질문한 사람의 유저 번호
+    question_content TEXT, -- 어떤 질문인지 내용
+    question_datetime DATETIME, --질문한 시간
+    answer_datetime DATETIME, -- 답변한 시간
+    answer_content TEXT, -- 답변 내용
+    answerer_id INT, --답변한 사람의 유저 번호 
     PRIMARY KEY(question_id),
     FOREIGN KEY(post_id) REFERENCES post(post_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id),
@@ -97,8 +97,8 @@ CREATE TABLE qna (
 -- notification 테이블 생성
 CREATE TABLE notification (
     notification_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절') NOT NULL,
+    user_id INT NOT NULL,--알림을 받는 회원 번호 
+    notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절') NOT NULL, --알림 종류
     related_item_type ENUM('QnA', '프로젝트') NULL, -- 추가된 필드
     related_item_id INT NULL,
     notification_message TEXT NOT NULL,
