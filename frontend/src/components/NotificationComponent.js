@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
@@ -21,14 +22,14 @@ function NotificationComponent() {
                 });
                 const data = await response.json();
                 if (response.status === 200) {
-                    setNotifications(data); // 알림 데이터를 상태에 저장
+                    setNotifications(data); 
                 } else {
                     alert('알림을 가져오는 중 오류가 발생했습니다.');
-                    navigate(-1); // 이전 페이지로 이동
+                    navigate(-1);
                 }
             } catch (error) {
                 alert('알림을 가져오는 중 오류가 발생했습니다.');
-                navigate(-1); // 이전 페이지로 이동
+                navigate(-1);
             }
         };
 
@@ -55,23 +56,25 @@ function NotificationComponent() {
             alert('알림을 삭제하는 중 오류가 발생했습니다.');
         }
     };
-
     return (
-        <div>
-            <Navbar />
-            <HeaderComponent />
-            <h1>알림 페이지</h1>
-            <ul>
-                {notifications.map(notification => (
-                    <li key={notification.notification_id}>
-                        <strong>메시지:</strong> {notification.notification_message}<br />
-                        <strong>유형:</strong> {notification.notification_type}<br />
-                        <button onClick={() => handleDeleteNotification(notification.notification_id)}>삭제</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  <div>
+    <Navbar />
+    <HeaderComponent />
+    <h1>알림 페이지</h1>
+    <ul>
+      {notifications.map(notification => (
+        <li key={notification.notification_id}>
+          <strong>메시지:</strong> {notification.notification_message}<br />
+          <strong>유형:</strong> {notification.notification_type}<br />
+          <button onClick={() => handleDeleteNotification(notification.notification_id)}>삭제</button>
+          <Link to={`/post/${notification.related_item_id}`}>
+            <button>확인</button>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 }
 
 export default NotificationComponent;
