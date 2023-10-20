@@ -1,8 +1,8 @@
--- 데이터베이스 생성 및 사용
+-- 데이터베이스 생성 및 설정
 CREATE DATABASE IF NOT EXISTS Cb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE Cb;
 
--- 기존 테이블 제거
+-- 기존 테이블 삭제
 DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS qna;
 DROP TABLE IF EXISTS project_participation;
@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS profile_info;
 DROP TABLE IF EXISTS user_info;
 
--- user_info 테이블 생성
+-- 사용자 정보 테이블 생성
 CREATE TABLE user_info (
     user_id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -21,8 +21,7 @@ CREATE TABLE user_info (
     PRIMARY KEY(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
--- profile_info 테이블 생성
+-- 사용자 프로필 정보 테이블 생성
 CREATE TABLE profile_info (
     profile_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -32,16 +31,16 @@ CREATE TABLE profile_info (
     skill_set TEXT,
     experience TEXT,
     portfolio_link VARCHAR(255),
-    profile_photo VARCHAR(255),       -- 프로필 사진의 저장 경로나 URL
-    address TEXT,                     -- 주소
-    phone_number VARCHAR(20),         -- 전화번호
-    social_media_links TEXT,          -- JSON 형식의 소셜 미디어 링크 (예: {"facebook": "URL", "twitter": "URL"})
-    about_me TEXT,                    -- 자기소개
+    profile_photo VARCHAR(255),
+    address TEXT,
+    phone_number VARCHAR(20),
+    social_media_links TEXT,
+    about_me TEXT,
     PRIMARY KEY(profile_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- post 테이블 생성
+-- 게시글 테이블 생성
 CREATE TABLE post (
     post_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -63,43 +62,43 @@ CREATE TABLE post (
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
--- project_participation 테이블 생성
+-- 프로젝트 참여 신청 테이블 생성
 CREATE TABLE project_participation (
     application_id INT NOT NULL AUTO_INCREMENT,
     post_id INT NOT NULL,
-    user_id INT NOT NULL, 
-    application_datetime DATETIME, 
-    organizer_reaction_datetime DATETIME, 
+    user_id INT NOT NULL,
+    application_datetime DATETIME,
+    organizer_reaction_datetime DATETIME,
     response_message TEXT,
-    application_status ENUM('신청중', '수락', '거절'), 
+    application_status ENUM('신청중', '수락', '거절'),
     PRIMARY KEY(application_id),
     FOREIGN KEY(post_id) REFERENCES post(post_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- qna 테이블 생성
+-- Q&A 테이블 생성
 CREATE TABLE qna (
-    question_id INT NOT NULL AUTO_INCREMENT, 
-    post_id INT NOT NULL, 
+    question_id INT NOT NULL AUTO_INCREMENT,
+    post_id INT NOT NULL,
     user_id INT NOT NULL,
-    question_content TEXT, 
-    question_datetime DATETIME, 
-    answer_datetime DATETIME, 
-    answer_content TEXT, 
-    answerer_id INT, 
+    question_content TEXT,
+    question_datetime DATETIME,
+    answer_datetime DATETIME,
+    answer_content TEXT,
+    answerer_id INT,
     PRIMARY KEY(question_id),
     FOREIGN KEY(post_id) REFERENCES post(post_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id),
     FOREIGN KEY(answerer_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- notification 테이블 생성
+-- 알림 테이블 생성
 CREATE TABLE notification (
     notification_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절') NOT NULL, 
-    related_item_type ENUM('QnA', '프로젝트') NULL, 
+    notification_type ENUM('질문요청', '답변알림', '프로젝트참가요청', '참가수락', '참가거절') NOT NULL,
+    related_item_type ENUM('QnA', '프로젝트') NULL,
+    related_item_id INT NULL,
     notification_message TEXT NOT NULL,
     creation_datetime DATETIME NOT NULL,
     is_read BOOLEAN DEFAULT FALSE NOT NULL,
@@ -107,22 +106,20 @@ CREATE TABLE notification (
     FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
--- user_info 테이블에서 데이터 확인
+-- user_info 테이블의 데이터 조회
 SELECT * FROM user_info;
 
--- profile_info 테이블에서 데이터 확인
+-- profile_info 테이블의 데이터 조회
 SELECT * FROM profile_info;
 
--- post 테이블에서 데이터 확인
+-- post 테이블의 데이터 조회
 SELECT * FROM post;
 
--- project_participation 테이블에서 데이터 확인
+-- project_participation 테이블의 데이터 조회
 SELECT * FROM project_participation;
 
--- qna 테이블에서 데이터 확인
+-- qna 테이블의 데이터 조회
 SELECT * FROM qna;
 
--- notification 테이블에서 데이터 확인
+-- notification 테이블의 데이터 조회
 SELECT * FROM notification;
