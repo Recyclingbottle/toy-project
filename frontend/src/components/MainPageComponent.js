@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
-import HeaderComponent from './HeaderComponent';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import Navbar from './NavbarComponent';
+import HeaderComponent from './HeaderComponent';
 
 
 function MainPageComponent() {
     const [posts, setPosts] = useState([]);
-    const [selectedPostId, setSelectedPostId] = useState(null);
     const navigate = useNavigate();
 
-    // Redux 스토어에서 토큰 및 프로필 데이터 가져오기
-    const token = localStorage.getItem('token');
+    // Redux 스토어에 있는 토큰 가져오기
+    const token = useSelector(state => state.auth.token);
 
     useEffect(() => {
         const fetchPosts = async () => {
