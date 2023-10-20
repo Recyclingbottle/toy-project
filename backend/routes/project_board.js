@@ -61,6 +61,24 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 });
 
+// 게시물 권한 및 데이터 확인
+router.get('/:postId/permission', authenticateToken, async (req, res) => {
+    const postId = req.params.postId;
+    try {
+        const post = await Post.findOne({ where: { post_id: postId } });
+
+        if (!post) return res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+
+        if (post.user_id !== req.user.id) return res.status(403).json({ error: '수정 권한이 없습니다.' });
+
+        res.status(200).json(post);
+
+    } catch (error) {
+        res.status(500).json({ error: '권한 및 데이터 확인 중 오류가 발생했습니다.' });
+    }
+});
+
+
 // 게시물 수정
 router.put('/:postId', authenticateToken, async (req, res) => {
     const postId = req.params.postId;
