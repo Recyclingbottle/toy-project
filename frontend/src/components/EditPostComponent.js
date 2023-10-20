@@ -19,7 +19,6 @@ function PostEditComponent() {
                     }
                 });
                 const data = await response.json();
-                console.log(data);
                 if (response.status === 200) {
                     setPost(data);
                 } else if (response.status === 403) {

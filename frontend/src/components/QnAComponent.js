@@ -12,8 +12,6 @@ function QnAComponent({ postId }) {
     // 질문 등록
     const askQuestion = async () => {
         try {
-            console.log(token);
-            console.log(questionContent);
             const questionData = {
                 post_id: postId, // 게시물의 고유 식별자
                 question_content: questionContent, // 질문 내용
