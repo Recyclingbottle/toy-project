@@ -111,7 +111,7 @@ function Profile() {
                 {renderSNSLinks(profileData)}
                 <div><strong>자기소개:</strong> {profile.about_me}</div>
             </div>
-            <button onClick={() => navigate('/edit_profile')}>프로필 수정하기</button>
+            <button onClick={() => navigate('/edit-profile')}>프로필 수정하기</button>
         </div>
     );
 }
