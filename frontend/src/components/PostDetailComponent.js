@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import HeaderComponent from './HeaderComponent';
 import Navbar from './NavbarComponent';
-import QnAComponent from './QnAComponent'; // QnAComponent를 import합니다.
+import QnAComponent from './QnAComponent'; 
 
 function PostDetailComponent() {
     const [post, setPost] = useState(null);
