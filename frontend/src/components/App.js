@@ -40,7 +40,7 @@ function App() {
         <Route path="/login" element={<LoginComponent />} />
         <Route path="/signup" element={<SignUpComponent />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/register_profile" element={<RegisterProfile />} />
+        <Route path="/register-profile" element={<RegisterProfile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/create-post" element={<CreatePostComponent />} />
         <Route path="/post/:postId" element={<PostDetailComponent />} />
