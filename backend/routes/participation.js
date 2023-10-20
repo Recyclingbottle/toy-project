@@ -28,7 +28,7 @@ router.post('/apply/:postId', authenticateToken, async (req, res) => {
         // 해당 게시글 조회
         const post = await Post.findByPk(req.params.postId);
         if (!post) return res.status(404).json({ error: '해당 게시글을 찾을 수 없습니다.' });
-
+        
         const participationData = {
             post_id: req.params.postId,
             user_id: req.user.id,
@@ -36,6 +36,7 @@ router.post('/apply/:postId', authenticateToken, async (req, res) => {
             application_status: '신청중'
         };
 
+        console.log(participationData);
         const application = await ProjectParticipation.create(participationData);
 
         // 알림 생성
@@ -54,12 +55,34 @@ router.post('/apply/:postId', authenticateToken, async (req, res) => {
     }
 });
 
+// 게시글의 참가 신청 데이터 조회
+router.get('/:applicationId', authenticateToken, async (req, res) => {
+    const applicationId = req.params.applicationId; // URL에서 applicationId를 가져옴
+    console.log(applicationId);
+
+    try {
+        // 게시글의 참가 신청 데이터를 조회
+        const participation = await ProjectParticipation.findOne({
+            where: {
+                application_id: applicationId
+            }
+        });
+
+        if (!participation) {
+            return res.status(404).json({ error: '참가 신청 데이터를 찾을 수 없습니다.' });
+        }
+
+        // 조회된 데이터를 클라이언트에게 반환
+        res.status(200).json(participation);
+    } catch (error) {
+        res.status(500).json({ error: '참가 신청 데이터 조회 중 오류가 발생했습니다.' });
+    }
+});
 
 // 반응하는 로직: 승인/거절 + 메세지
 router.put('/response/:applicationId', authenticateToken, async (req, res) => {
     try {
         const { response_message, application_status } = req.body;
-
         if (!['수락', '거절'].includes(application_status)) {
             return res.status(400).json({ error: '잘못된 응답 상태입니다.' });
         }
