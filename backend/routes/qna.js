@@ -1,8 +1,10 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const QnA = require('../models/qna');
 const Notification = require('../models/notification');  // 알림 모델 임포트
+const Post = require('../models/post');
 
 const { SECRET_KEY } = require('./jwt_config');
 
@@ -21,19 +23,44 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+// 게시물 정보를 가져오는 함수
+const getPostById = async (postId) => {
+    try {
+        const post = await Post.findByPk(postId);
+        return post;
+    } catch (error) {
+        console.error('게시물 정보를 가져오는 중 오류 발생:', error);
+        throw error;
+    }
+};
+
+
 // QnA에 질문 등록
 router.post('/ask', authenticateToken, async (req, res) => {
     try {
+        const { post_id, question_content } = req.body;
+        const user_id = req.user.id;
+        const question_datetime = new Date();
+
+        // 게시물 정보 가져오기
+        const post = await getPostById(post_id);
+
+        if (!post) {
+            // 게시물을 찾을 수 없을 경우에 대한 처리
+            return res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+        }
+
         const questionData = {
-            ...req.body,
-            user_id: req.user.id,
-            question_datetime: new Date()
+            post_id,
+            user_id,
+            question_content,
+            question_datetime
         };
         const question = await QnA.create(questionData);
 
         // 알림 생성 (게시글 작성자에게)
         await Notification.create({
-            user_id: relatedPost.user_id,
+            user_id: post.user_id, // 게시물 작성자의 user_id 사용
             notification_type: '질문요청',
             related_item_type: 'QnA',
             related_item_id: question.question_id,
@@ -41,11 +68,19 @@ router.post('/ask', authenticateToken, async (req, res) => {
             creation_datetime: new Date()
         });
 
+        // 추가: 로그 출력
+        console.log('질문이 등록되었습니다.', question);
+
         res.status(201).json(question);
     } catch (error) {
+        // 추가: 오류 로그 출력
+        console.error('질문 등록 중 오류가 발생했습니다.', error);
+
         res.status(500).json({ error: '질문 등록 중 오류가 발생했습니다.' });
     }
 });
+
+
 // 특정 게시물에 대한 모든 질문 조회
 router.get('/:postId', async (req, res) => {
     try {
