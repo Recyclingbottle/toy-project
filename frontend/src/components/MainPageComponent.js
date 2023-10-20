@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 import Navbar from './NavbarComponent';
 import HeaderComponent from './HeaderComponent';
 
-
 function MainPageComponent() {
     const [posts, setPosts] = useState([]);
-    const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredPosts, setFilteredPosts] = useState([]);
 
-    // Redux 스토어에 있는 토큰 가져오기
+    const navigate = useNavigate();
     const token = useSelector(state => state.auth.token);
 
     useEffect(() => {
@@ -27,16 +27,20 @@ function MainPageComponent() {
                 console.error("게시글 로딩에 실패했습니다", error);
             }
         };
-
         fetchPosts();
     }, [token]);
 
-    // 게시글 등록 시 실행되는 함수
+    useEffect(() => {
+        const results = posts.filter(post => 
+            post.project_title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredPosts(results);
+    }, [searchTerm, posts]);
+
     const handleCreatePost = () => {
         navigate('/create-post');
     }
 
-    // 개별 게시물 보기 처리
     const handleViewPost = (postId) => {
         navigate(`/post/${postId}`);
     }
@@ -46,12 +50,15 @@ function MainPageComponent() {
             <Navbar />
             <HeaderComponent />
             <div className="main-content">
-                <input type="text" placeholder="검색어를 입력하세요" />
-
+                <input 
+                    type="text" 
+                    placeholder="검색어를 입력하세요" 
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                />
                 <button onClick={handleCreatePost}>게시글 등록하기</button>
-
                 <div className="cards">
-                    {posts.map(post => (
+                    {filteredPosts.map(post => (
                         <div key={post.post_id} className="card" onClick={() => handleViewPost(post.post_id)}>
                             <h3>{post.project_title}</h3>
                             <p>{post.post_content}</p>
