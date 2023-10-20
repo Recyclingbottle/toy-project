@@ -93,15 +93,28 @@ router.put('/:postId', authenticateToken, async (req, res) => {
 
 // 게시물 삭제
 router.delete('/:postId', authenticateToken, async (req, res) => {
-    const postId = req.params.postId;
+    const postId = parseInt(req.params.postId, 10); // 문자열 postId를 숫자로 변환
+
+    // 1. postId가 유효하지 않은 경우
+    if (isNaN(postId)) {  // isNaN() 함수를 사용하여 숫자가 아닌 경우를 체크
+        return res.status(400).json({ error: '유효하지 않은 게시물 아이디입니다.' });
+    }
+
     try {
         const result = await Post.destroy({ where: { post_id: postId, user_id: req.user.id } });
+
+        // 4. 게시물이 존재하지 않는 경우
         if (result === 0) return res.status(404).json({ error: '삭제할 게시물을 찾을 수 없습니다.' });
+
+        // 성공 메시지
         res.status(200).json({ message: '게시물이 성공적으로 삭제되었습니다.' });
     } catch (error) {
+        // 3. DB 연결 오류 또는 5. 기타 예외 오류
+        console.error(error); // 실제 에러 로그를 콘솔에 출력 (추적을 위함)
         res.status(500).json({ error: '게시물 삭제에 실패했습니다.' });
     }
 });
+
 
 // 좋아요 기능
 router.post('/:postId/like', authenticateToken, async (req, res) => {
