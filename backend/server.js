@@ -10,6 +10,7 @@ const profileRouter = require('./routes/profile');
 const projectboardRouter = require('./routes/project_board');
 const participationRouter = require('./routes/participation');
 const qnaRouter = require('./routes/qna');
+const notificationRouter = require('./routes/notification');
 
 // 2. 앱 초기화
 const app = express();
@@ -38,6 +39,8 @@ app.use('/pboard', projectboardRouter);
 app.use('/part', participationRouter);
 //qna 라우터 연결
 app.use('/qna', qnaRouter);
+//notification 라우터 연결
+app.use('/notification', notificationRouter);
 
 // 5. Sequelize를 사용한 데이터베이스 연결 설정
 const config = require('./config/config.json').development;

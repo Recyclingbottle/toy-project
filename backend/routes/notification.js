@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+
 const Notification = require('../models/notification');
 const { SECRET_KEY } = require('./jwt_config');
 
