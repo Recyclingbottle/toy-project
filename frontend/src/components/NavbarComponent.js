@@ -15,10 +15,10 @@ function Navbar() {
     };
 
     return (
-        <div className="navbar"> {/* 스타일이 적용될 클래스 이름 추가 */}
+        <div className="navbar">
             <Link to="/">홈</Link>
             <Link to="/profile">프로필</Link>
-            <Link to="/notifications">알림</Link>
+            <Link to="/notification">알림</Link>
             {isAuthenticated ? (
                 <button onClick={handleLogout}>로그아웃</button>
             ) : (
